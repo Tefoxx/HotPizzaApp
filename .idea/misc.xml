@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable-v23/splash_screen.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/ic_splash_logo.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/shape_back_to_menu_btn.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/shape_bottom_sheet.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/shape_buttons.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/shape_line_sheet.xml" value="0.3828125" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/drawable/splash_screen.xml" value="0.33" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.33" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/button.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/fragment_cart.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/fragment_end.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/fragment_image.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/fragment_images.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/fragment_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/ProjectsAndroid/HotPizzaApp/app/src/main/res/layout/items_layout.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
