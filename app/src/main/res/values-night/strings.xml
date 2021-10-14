@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="go_to_cart">Go to Cart</string>
+    <string name="go_to_end">Go to End</string>
+    <string name="ditails">Ditails</string>
+    <string name="end_descr_1">Order was successfully sent!</string>
+    <string name="back_to_menu">Back to menu</string>
+</resources>

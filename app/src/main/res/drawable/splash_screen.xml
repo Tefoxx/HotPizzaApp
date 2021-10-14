@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/orange_main"/>
+    <!-- делал через картинку, но изображение плохого качества получается
+       сделал через .svg -->
+    <item
+        android:gravity="center"
+        android:width="141dp"
+        android:height="86dp"
+        android:drawable="@drawable/ic_splash_logo"/>
+
+</layer-list>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">HotPizzaApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu">Menu</string>
+    <string name="go_to_cart">Go to Cart</string>
+    <string name="cart">Cart</string>
+    <string name="go_to_end">Go to End</string>
+    <string name="ditails">Ditails</string>
+    <string name="go_to_details">Go To Details</string>
+    <string name="end_descr_1">Order was successfully sent!</string>
+    <string name="end_descr_2">We will call you soon to confirm order details</string>
+    <string name="back_to_menu">Back to menu</string>
+</resources>
