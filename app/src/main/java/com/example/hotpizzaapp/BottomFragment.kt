@@ -76,38 +76,42 @@ class BottomFragment : BottomSheetDialogFragment() {
             }
             val button = it.findViewById<LinearLayout>(R.id.btnBottomSheet)
 
-            button?.setOnClickListener {
-                requireActivity().let {
-                    it.supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.flFragment, CartFragment())
-                        addToBackStack(null)
-                        commit()
-                    }
-                    dismiss()
-                }
-            }
+            button?.setOnClickListener(btnClickSheet)
 
             val price = it.findViewById<TextView>(R.id.pricePizza)
             price?.text = arguments?.getString("price") + "₽"
 
 
-            binding.ivPizzaSheet.setOnClickListener {
-                requireActivity().let {
+            binding.ivPizzaSheet.setOnClickListener(ivClickSheet)
+        }
+    }
 
-                    val bundle = Bundle()
-                    val fragmentImage = ImageFragment()
-                    bundle.putString("imageUrl",arguments?.getString("imageUrl"))
-
-                    fragmentImage.arguments = bundle
-
-                    it.supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.flFragment, fragmentImage)
-                        addToBackStack(null)
-                        commit()
-                    }
-                    dismiss()
-                }
+    val btnClickSheet = View.OnClickListener {
+        requireActivity().let {
+            it.supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment, CartFragment())
+                addToBackStack(null)
+                commit()
             }
+            dismiss()
+        }
+    }
+
+    val ivClickSheet = View.OnClickListener {
+        requireActivity().let {
+
+            val bundle = Bundle()
+            val fragmentImage = ImageFragment()
+            bundle.putString("imageUrl",arguments?.getString("imageUrl"))
+
+            fragmentImage.arguments = bundle
+
+            it.supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment, fragmentImage)
+                addToBackStack(null)
+                commit()
+            }
+            dismiss()
         }
     }
 
