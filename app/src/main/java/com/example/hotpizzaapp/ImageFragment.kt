@@ -6,19 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
+import com.example.hotpizzaapp.databinding.FragmentImageBinding
+import com.example.hotpizzaapp.databinding.FragmentMenuBinding
+import com.squareup.picasso.Picasso
 
 class ImageFragment : Fragment() {
+
+    private lateinit var binding: FragmentImageBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val myFragmentView = inflater.inflate(R.layout.fragment_image,
-            container, false)
-        val btnCart = myFragmentView.findViewById<Button>(R.id.btnGoToCard)
 
-        btnCart.setOnClickListener{
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_image, container,false )
+
+        Picasso.get().load(arguments?.getString("imageUrl")).into(binding.ivPizzaItem)
+
+        binding.btnGoToCard.setOnClickListener{
             activity?.let {
                 it.supportFragmentManager.popBackStack()
                 //Если поставить коммент, то будет возвращать к картинке
@@ -30,7 +37,7 @@ class ImageFragment : Fragment() {
                 }
         }
 
-        return myFragmentView
+        return binding.root
     }
 
 }

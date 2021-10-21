@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+import androidx.fragment.app.activityViewModels
+import com.example.hotpizzaapp.models.MenuFragmentViewModel
 
 
 class CartFragment : Fragment() {
@@ -20,6 +22,7 @@ class CartFragment : Fragment() {
             container, false)
         val btnCCart = myFragmentView.findViewById<Button>(R.id.btnGoToEnd)
         val cartEnd = EndFragment()
+
 
         btnCCart.setOnClickListener {
             activity?.let {

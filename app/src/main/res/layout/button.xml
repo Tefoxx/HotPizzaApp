@@ -4,15 +4,37 @@
     android:layout_height="match_parent"
     android:background="@drawable/shape_bottom_sheet">
 
-    <Button
+    <LinearLayout
         android:id="@+id/btnBottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/shape_buttons"
-        android:backgroundTint="@color/orange_main"
-        android:text="@string/go_to_cart" />
+        android:orientation="horizontal"
+        android:background="@drawable/shape_buttons">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="19dp"
+            android:layout_marginStart="23dp"
+            android:text="@string/add_to_card"
+            android:textSize="18sp"
+            android:fontFamily="@font/lato_bold"
+            android:textColor="@color/black_main"/>
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/pricePizza"
+            android:layout_marginEnd="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_900"
+            android:textSize="18sp"
+            android:fontFamily="@font/lato_bold"
+            android:textColor="@color/black_main"/>
+    </LinearLayout>
+
 
 </LinearLayout>

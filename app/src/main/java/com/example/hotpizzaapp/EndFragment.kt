@@ -6,31 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
+import com.example.hotpizzaapp.databinding.FragmentEndBinding
+import com.example.hotpizzaapp.databinding.FragmentImageBinding
 
 
 class EndFragment : Fragment() {
 
+    private lateinit var binding: FragmentEndBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val myFragmentView = inflater.inflate(R.layout.fragment_end,
-            container, false)
-        val btnCEnd = myFragmentView.findViewById<Button>(R.id.btnGotoMenu)
-        val cartMenu = MenuFragment()
 
-        btnCEnd.setOnClickListener {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_end, container,false )
+        binding.btnGotoMenu.setOnClickListener {
             activity?.let {
                 it.supportFragmentManager.popBackStack()
                 it.supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.flFragment, cartMenu)
+                    replace(R.id.flFragment, MenuFragment())
                     commit()
                 }
 
             }
         }
 
-        return myFragmentView
+        return binding.root
     }
 }

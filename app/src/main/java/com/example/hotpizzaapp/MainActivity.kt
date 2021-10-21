@@ -2,6 +2,8 @@ package com.example.hotpizzaapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 
 
 class MainActivity : AppCompatActivity() {
@@ -9,6 +11,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.ThemeHotPizzaApp)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         //Main
         val menuFragment = MenuFragment()
@@ -19,4 +22,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 }

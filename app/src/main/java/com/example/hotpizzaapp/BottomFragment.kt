@@ -1,27 +1,40 @@
 package com.example.hotpizzaapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.renderscript.ScriptGroup
 import android.view.Gravity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageView
+import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.databinding.DataBindingUtil
+import com.example.hotpizzaapp.databinding.BottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.squareup.picasso.Picasso
 
 private const val COLLAPSED_HEIGHT = 220
 
 class BottomFragment : BottomSheetDialogFragment() {
 
+    private lateinit var binding: BottomSheetLayoutBinding
     override fun getTheme() = R.style.AppBottomSheetDialogTheme
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.bottom_sheet_layout, container, false)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_layout, container,false )
+
+        binding.tvPizzaName.text = arguments?.getString("name")
+        binding.descriptionPizza.text = arguments?.getString("description")
+        Picasso.get().load(arguments?.getString("imageUrl")).into(binding.ivPizzaSheet)
+
+        return binding.root
     }
 
+    @SuppressLint("SetTextI18n", "InflateParams")
     override fun onStart() {
         super.onStart()
 
@@ -32,7 +45,7 @@ class BottomFragment : BottomSheetDialogFragment() {
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
 
-            behavior.peekHeight = ((COLLAPSED_HEIGHT + 85) * density).toInt()
+            behavior.peekHeight = ((COLLAPSED_HEIGHT + 110) * density).toInt()
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
             val coordinator = (it as BottomSheetDialog).findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
@@ -61,7 +74,8 @@ class BottomFragment : BottomSheetDialogFragment() {
                     containerLayout?.requestLayout()
                 }
             }
-            val button = it.findViewById<Button>(R.id.btnBottomSheet)
+            val button = it.findViewById<LinearLayout>(R.id.btnBottomSheet)
+
             button?.setOnClickListener {
                 activity?.let {
                     it.supportFragmentManager.beginTransaction().apply {
@@ -72,11 +86,22 @@ class BottomFragment : BottomSheetDialogFragment() {
                     dismiss()
                 }
             }
+
+            val price = it.findViewById<TextView>(R.id.pricePizza)
+            price?.text = arguments?.getString("price") + "₽"
+
             val ivPizza = it.findViewById<ImageView>(R.id.ivPizzaSheet)
             ivPizza?.setOnClickListener {
                 activity?.let {
+
+                    val bundle = Bundle()
+                    val fragmentImage = ImageFragment()
+                    bundle.putString("imageUrl",arguments?.getString("imageUrl"))
+
+                    fragmentImage.arguments = bundle
+
                     it.supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.flFragment, ImageFragment())
+                        replace(R.id.flFragment, fragmentImage)
                         addToBackStack(null)
                         commit()
                     }

@@ -1,14 +1,24 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
     compileSdk 30
 
+
+
     viewBinding {
-        enabled = true
+        enabled true
     }
+
+
+
+    dataBinding {
+        enabled true
+    }
+
     defaultConfig {
         applicationId "com.example.hotpizzaapp"
         minSdk 21
@@ -35,6 +45,12 @@ android {
 }
 
 dependencies {
+    def lifecycle_version = "2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.3.1'
 
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -46,4 +62,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.fragment:fragment-ktx:1.3.6'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

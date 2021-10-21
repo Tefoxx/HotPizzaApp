@@ -5,4 +5,7 @@
     <string name="ditails">Ditails</string>
     <string name="end_descr_1">Order was successfully sent!</string>
     <string name="back_to_menu">Back to menu</string>
+    <string name="add_to_card">Add to Card</string>
+    <string name="search">Search</string>
+    <string name="item_description">Крутая пицца ваще топ за свои деньги реально</string>
 </resources>
