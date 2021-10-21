@@ -5,21 +5,15 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import android.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotpizzaapp.adapters.PizzaAdapter
 import com.example.hotpizzaapp.data.PizzaEntity
 import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
-import androidx.core.content.ContextCompat.getSystemService
-import java.util.*
 
 
 class MenuFragment : Fragment() {
@@ -67,8 +61,6 @@ class MenuFragment : Fragment() {
 
         }
 
-
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -93,8 +85,6 @@ class MenuFragment : Fragment() {
                 return true
             }
         })
-
-
 
         return binding.root
     }

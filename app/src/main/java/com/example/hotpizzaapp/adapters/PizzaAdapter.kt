@@ -16,7 +16,6 @@ import com.example.hotpizzaapp.databinding.PizzaItemsBinding
 import com.squareup.picasso.Picasso
 
 
-//                   private val context: Context
 class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaEntity>>,
                    private val fragmentManager: FragmentManager) : RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder>(){
 
@@ -62,10 +61,6 @@ class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaEntity>>,
                 bottomSheet.show(fragmentManager, "tag")
             }
         }
-
-
-
-
     }
 
     override fun getItemCount() = dataList.value?.size?:0

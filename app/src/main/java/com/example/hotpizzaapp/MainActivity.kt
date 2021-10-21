@@ -12,14 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         //Main
         val menuFragment = MenuFragment()
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment, menuFragment)
             commit()
         }
-
 
     }
 
