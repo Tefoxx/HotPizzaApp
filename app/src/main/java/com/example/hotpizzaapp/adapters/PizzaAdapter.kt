@@ -29,9 +29,6 @@ class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaEntity>>,
             pricePizza.text = listItem.price.toInt().toString() + "₽"
             descriptionPizza.text = listItem.description
 
-
-
-
         }
     }
 

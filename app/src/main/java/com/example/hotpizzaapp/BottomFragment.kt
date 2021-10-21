@@ -44,8 +44,7 @@ class BottomFragment : BottomSheetDialogFragment() {
             val bottomSheet = it.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
-
-            behavior.peekHeight = ((COLLAPSED_HEIGHT + 110) * density).toInt()
+            behavior.peekHeight = ((COLLAPSED_HEIGHT + 60) * density).toInt()
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
             val coordinator = (it as BottomSheetDialog).findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
@@ -77,7 +76,7 @@ class BottomFragment : BottomSheetDialogFragment() {
             val button = it.findViewById<LinearLayout>(R.id.btnBottomSheet)
 
             button?.setOnClickListener {
-                activity?.let {
+                requireActivity().let {
                     it.supportFragmentManager.beginTransaction().apply {
                         replace(R.id.flFragment, CartFragment())
                         addToBackStack(null)
@@ -90,9 +89,9 @@ class BottomFragment : BottomSheetDialogFragment() {
             val price = it.findViewById<TextView>(R.id.pricePizza)
             price?.text = arguments?.getString("price") + "₽"
 
-            val ivPizza = it.findViewById<ImageView>(R.id.ivPizzaSheet)
-            ivPizza?.setOnClickListener {
-                activity?.let {
+
+            binding.ivPizzaSheet.setOnClickListener {
+                requireActivity().let {
 
                     val bundle = Bundle()
                     val fragmentImage = ImageFragment()
