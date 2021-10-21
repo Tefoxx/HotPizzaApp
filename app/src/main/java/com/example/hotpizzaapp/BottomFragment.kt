@@ -38,6 +38,7 @@ class BottomFragment : BottomSheetDialogFragment() {
     override fun onStart() {
         super.onStart()
 
+        //Фикс этого ужаса позже будет
         val density = requireContext().resources.displayMetrics.density
 
         dialog?.let {
