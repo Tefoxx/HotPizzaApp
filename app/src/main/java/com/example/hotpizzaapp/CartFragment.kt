@@ -6,35 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.activityViewModels
+import com.example.hotpizzaapp.databinding.BottomSheetLayoutBinding
+import com.example.hotpizzaapp.databinding.FragmentCartBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
 
 
 class CartFragment : Fragment() {
 
+
+    private lateinit var binding: FragmentCartBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val myFragmentView = inflater.inflate(R.layout.fragment_cart,
-            container, false)
-        val btnCCart = myFragmentView.findViewById<Button>(R.id.btnGoToEnd)
-        val cartEnd = EndFragment()
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container,false )
 
-
-        btnCCart.setOnClickListener {
-            activity?.let {
-                it.supportFragmentManager.popBackStack()
-                it.supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.flFragment, cartEnd)
-                    addToBackStack(null)
-                    commit()
-                }
+        binding.btnFragmentCart.setOnClickListener {
+            parentFragmentManager.popBackStack()
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment, EndFragment())
+                addToBackStack(null)
+                commit()
             }
         }
-        return myFragmentView
+        return binding.root
 
     }
 

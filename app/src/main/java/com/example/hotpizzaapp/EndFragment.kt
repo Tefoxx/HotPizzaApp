@@ -20,16 +20,12 @@ class EndFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_end, container,false )
         binding.btnGotoMenu.setOnClickListener {
-            activity?.let {
-                it.supportFragmentManager.popBackStack()
-                it.supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.flFragment, MenuFragment())
-                    commit()
-                }
-
+            parentFragmentManager.popBackStack()
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment, MenuFragment())
+                commit()
             }
         }
 

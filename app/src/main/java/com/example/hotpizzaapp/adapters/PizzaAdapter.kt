@@ -11,24 +11,39 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hotpizzaapp.BottomFragment
 import com.example.hotpizzaapp.R
-import com.example.hotpizzaapp.data.PizzaEntity
+import com.example.hotpizzaapp.data.BundleKeys
+import com.example.hotpizzaapp.data.remote.PizzaListItem
 import com.example.hotpizzaapp.databinding.PizzaItemsBinding
 import com.squareup.picasso.Picasso
 
 
-class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaEntity>>,
+class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaListItem>?>,
                    private val fragmentManager: FragmentManager) : RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder>(){
 
     class PizzaViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val binding = PizzaItemsBinding.bind(view)
 
         @SuppressLint("SetTextI18n")
-        fun bind(listItem: PizzaEntity) = with(binding){
+        fun bind(listItem: PizzaListItem, fragmentManager: FragmentManager) = with(binding){
             pizzaTitle.text = listItem.name
 
             pricePizza.text = listItem.price.toInt().toString() + "₽"
             descriptionPizza.text = listItem.description
 
+            cardView.setOnClickListener{
+                val bundle = Bundle()
+
+                with(bundle) {
+                    putString(BundleKeys.NAME, listItem.name)
+                    putString(BundleKeys.DESCRIPTION, listItem.description)
+                    putString(BundleKeys.PRICE, listItem.price.toInt().toString())
+                    putString(BundleKeys.IMAGEURL,listItem.imgList.first())
+                }
+
+                val bottomSheet = BottomFragment()
+                bottomSheet.arguments = bundle
+                bottomSheet.show(fragmentManager, "tag")
+            }
         }
     }
 
@@ -41,22 +56,9 @@ class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaEntity>>,
 
         dataList.value?.let {
             val listItem = it[position]
-            holder.bind(listItem)
+            holder.bind(listItem, fragmentManager)
+            Picasso.get().load(listItem.imgList.first()).into(holder.binding.pizzaImage)
 
-            Picasso.get().load(listItem.imageUrl).into(holder.binding.pizzaImage)
-
-            holder.binding.cardView.setOnClickListener{
-                val bundle = Bundle()
-
-                bundle.putString("name", listItem.name)
-                bundle.putString("description", listItem.description)
-                bundle.putString("price", listItem.price.toInt().toString())
-                bundle.putString("imageUrl",listItem.imageUrl)
-
-                val bottomSheet = BottomFragment()
-                bottomSheet.arguments = bundle
-                bottomSheet.show(fragmentManager, "tag")
-            }
         }
     }
 

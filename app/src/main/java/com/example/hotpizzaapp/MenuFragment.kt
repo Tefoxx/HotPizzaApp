@@ -3,6 +3,7 @@ package com.example.hotpizzaapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
@@ -12,8 +13,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotpizzaapp.adapters.PizzaAdapter
 import com.example.hotpizzaapp.data.PizzaEntity
+import com.example.hotpizzaapp.data.remote.PizzaListItem
 import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
+import okhttp3.internal.notify
 
 
 class MenuFragment : Fragment() {
@@ -24,6 +27,7 @@ class MenuFragment : Fragment() {
     private lateinit var adapterPizza: PizzaAdapter
     private lateinit var linearLayout: LinearLayoutManager
 
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +37,12 @@ class MenuFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
         binding.viewModel = viewModel
 
+        viewModel.fetchPizzaList(viewModel.pizzaApi)
+
         activity?.let {
-            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen, it.supportFragmentManager)
+
+            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen, parentFragmentManager)
+
             linearLayout = LinearLayoutManager(it)
 
             binding.recyclerPizza.layoutManager = linearLayout
@@ -73,10 +81,10 @@ class MenuFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val resList = mutableListOf<PizzaEntity>()
+                val resList = mutableListOf<PizzaListItem>()
 
                 if(newText != null) {
-                    viewModel.pizzaList.forEach {
+                    viewModel.pizzaList.value?.forEach {
                         if(it.name.lowercase().contains(newText.lowercase()))
                             resList.add(it)
                     }
@@ -91,7 +99,7 @@ class MenuFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.pizzaListOpen.value = viewModel.pizzaList
+        viewModel.pizzaListOpen.value = viewModel.pizzaList.value
     }
 }
 

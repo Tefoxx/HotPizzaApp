@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
+import com.example.hotpizzaapp.data.BundleKeys
 import com.example.hotpizzaapp.databinding.BottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.picasso.Picasso
@@ -27,9 +28,9 @@ class BottomFragment : BottomSheetDialogFragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_layout, container,false )
 
-        binding.tvPizzaName.text = arguments?.getString("name")
-        binding.descriptionPizza.text = arguments?.getString("description")
-        Picasso.get().load(arguments?.getString("imageUrl")).into(binding.ivPizzaSheet)
+        binding.tvPizzaName.text = arguments?.getString(BundleKeys.NAME)
+        binding.descriptionPizza.text = arguments?.getString(BundleKeys.DESCRIPTION)
+        Picasso.get().load(arguments?.getString(BundleKeys.IMAGEURL)).into(binding.ivPizzaSheet)
 
         return binding.root
     }
@@ -45,7 +46,7 @@ class BottomFragment : BottomSheetDialogFragment() {
             val bottomSheet = it.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
-            behavior.peekHeight = ((COLLAPSED_HEIGHT + 60) * density).toInt()
+            behavior.peekHeight = ((COLLAPSED_HEIGHT + 80) * density).toInt()
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
             val coordinator = (it as BottomSheetDialog).findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
@@ -79,7 +80,7 @@ class BottomFragment : BottomSheetDialogFragment() {
             button?.setOnClickListener(btnClickSheet)
 
             val price = it.findViewById<TextView>(R.id.pricePizza)
-            price?.text = arguments?.getString("price") + "₽"
+            price?.text = arguments?.getString(BundleKeys.PRICE) + "₽"
 
 
             binding.ivPizzaSheet.setOnClickListener(ivClickSheet)
@@ -98,21 +99,18 @@ class BottomFragment : BottomSheetDialogFragment() {
     }
 
     val ivClickSheet = View.OnClickListener {
-        requireActivity().let {
+        val bundle = Bundle()
+        val fragmentImage = ImageFragment()
+        bundle.putString(BundleKeys.IMAGEURL,arguments?.getString(BundleKeys.IMAGEURL))
+        bundle.putString(BundleKeys.PRICE, arguments?.getString(BundleKeys.PRICE))
 
-            val bundle = Bundle()
-            val fragmentImage = ImageFragment()
-            bundle.putString("imageUrl",arguments?.getString("imageUrl"))
-
-            fragmentImage.arguments = bundle
-
-            it.supportFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragment, fragmentImage)
-                addToBackStack(null)
-                commit()
-            }
-            dismiss()
+        fragmentImage.arguments = bundle
+        parentFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, fragmentImage)
+            addToBackStack(null)
+            commit()
         }
+        dismiss()
     }
 
 }
