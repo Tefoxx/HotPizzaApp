@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/orange_main</item>
         <item name="colorPrimaryDark">@color/orange_main</item>
-        <item name="colorAccent">@color/teal_200</item>
+        <item name="colorAccent">@color/black_main</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">

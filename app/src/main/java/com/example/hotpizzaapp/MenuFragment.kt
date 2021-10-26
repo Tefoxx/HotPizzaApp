@@ -54,45 +54,53 @@ class MenuFragment : Fragment() {
         }
 
 
-        //Был спидран по SearchView. Было бы хорошо узнать от опытного разраба, как всё таки сделать правильно всё это, а не эти костыли :(
         binding.imgLoopa.setOnClickListener {
-
             with(binding){
                 tvMenuFragment.visibility = View.INVISIBLE
-                searchView.visibility = View.VISIBLE
+                etSearchPizza.visibility = View.VISIBLE
                 imgLoopa.visibility = View.INVISIBLE
-                searchView.requestFocus()
-                val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
-                searchView.setQuery("", false)
             }
-
         }
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-
-                with(binding){
-                    tvMenuFragment.visibility = View.VISIBLE
-                    imgLoopa.visibility = View.VISIBLE
-                    searchView.visibility = View.GONE
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                val resList = mutableListOf<PizzaListItem>()
-
-                if(newText != null) {
-                    viewModel.pizzaList.value?.forEach {
-                        if(it.name.lowercase().contains(newText.lowercase()))
-                            resList.add(it)
-                    }
-                    viewModel.pizzaListOpen.value = resList
-                }
-                return true
-            }
-        })
+        //Был спидран по SearchView. Было бы хорошо узнать от опытного разраба, как всё таки сделать правильно всё это, а не эти костыли :(
+//        binding.imgLoopa.setOnClickListener {
+//
+//            with(binding){
+//                tvMenuFragment.visibility = View.INVISIBLE
+//                searchView.visibility = View.VISIBLE
+//                imgLoopa.visibility = View.INVISIBLE
+//                searchView.requestFocus()
+//                val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                inputMethodManager.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
+//                searchView.setQuery("", false)
+//            }
+//
+//        }
+//
+//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//
+//                with(binding){
+//                    tvMenuFragment.visibility = View.VISIBLE
+//                    imgLoopa.visibility = View.VISIBLE
+//                    searchView.visibility = View.GONE
+//                }
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                val resList = mutableListOf<PizzaListItem>()
+//
+//                if(newText != null) {
+//                    viewModel.pizzaList.value?.forEach {
+//                        if(it.name.lowercase().contains(newText.lowercase()))
+//                            resList.add(it)
+//                    }
+//                    viewModel.pizzaListOpen.value = resList
+//                }
+//                return true
+//            }
+//        })
 
         return binding.root
     }
