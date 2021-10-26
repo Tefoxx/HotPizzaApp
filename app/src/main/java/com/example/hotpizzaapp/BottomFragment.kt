@@ -31,7 +31,7 @@ class BottomFragment : BottomSheetDialogFragment() {
         binding.tvPizzaName.text = arguments?.getString(BundleKeys.NAME)
         binding.descriptionPizza.text = arguments?.getString(BundleKeys.DESCRIPTION)
         Picasso.get().load(arguments?.getString(BundleKeys.IMAGEURL)).into(binding.ivPizzaSheet)
-
+        //Прикол
         return binding.root
     }
 
