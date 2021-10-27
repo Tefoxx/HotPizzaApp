@@ -3,32 +3,20 @@ package com.example.hotpizzaapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.SearchView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotpizzaapp.adapters.PizzaAdapter
-
 import com.example.hotpizzaapp.data.remote.PizzaListItem
 import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
-import okhttp3.internal.notify
-
-import android.widget.TextView
-
-import android.widget.TextView.OnEditorActionListener
 import android.app.Activity
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 
-import androidx.core.content.ContextCompat.getSystemService
 
 
 
@@ -74,12 +62,6 @@ class MenuFragment : Fragment() {
             })
         }
 
-//        binding.etSearchPizza.setOnFocusChangeListener { v, hasFocus ->
-//
-//        }
-
-
-
         binding.imgLoopa.setOnClickListener {
             with(binding){
                 tvMenuFragment.visibility = View.INVISIBLE
@@ -123,33 +105,6 @@ class MenuFragment : Fragment() {
             true
         }
 
-        //Был спидран по SearchView. Было бы хорошо узнать от опытного разраба, как всё таки сделать правильно всё это, а не эти костыли :(
-
-//
-//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//
-//                with(binding){
-//                    tvMenuFragment.visibility = View.VISIBLE
-//                    imgLoopa.visibility = View.VISIBLE
-//                    searchView.visibility = View.GONE
-//                }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                val resList = mutableListOf<PizzaListItem>()
-//
-//                if(newText != null) {
-//                    viewModel.pizzaList.value?.forEach {
-//                        if(it.name.lowercase().contains(newText.lowercase()))
-//                            resList.add(it)
-//                    }
-//                    viewModel.pizzaListOpen.value = resList
-//                }
-//                return true
-//            }
-//        })
 
         return binding.root
     }
