@@ -37,7 +37,7 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
             .subscribe({
 
                     pizzaList.value = it
-                    pizzaListOpen.value = pizzaList.value
+                    pizzaListOpen.value = it
 
             },{
                 //На "выходной" неделе сделаю кнопку или ещё что-то, чтобы App не перезагружать
@@ -47,5 +47,15 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
             }))
     }
 
+    fun searchPizza(value: String){
+        val resList = mutableListOf<PizzaListItem>()
+        value.let {
+            pizzaList.value?.forEach { pizzaItem ->
+                if(pizzaItem.name.lowercase().contains(it))
+                    resList.add(pizzaItem)
+            }
+            pizzaListOpen.value = resList
+        }
+    }
 
 }

@@ -71,18 +71,7 @@ class MenuFragment : Fragment() {
         }
 
         binding.etSearchPizza.addTextChangedListener {
-            with(binding){
-
-                val resList = mutableListOf<PizzaListItem>()
-                val edit = it
-                if(it != null) {
-                   viewModel?.pizzaList?.value?.forEach {
-                        if(it.name.lowercase().contains(edit.toString()))
-                            resList.add(it)
-                    }
-                    viewModel?.pizzaListOpen?.value = resList
-                }
-            }
+            viewModel.searchPizza(it.toString())
         }
 
 
