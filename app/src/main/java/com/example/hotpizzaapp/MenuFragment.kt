@@ -16,16 +16,7 @@ import com.example.hotpizzaapp.data.remote.PizzaListItem
 import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
 import android.app.Activity
-
-
-
-
-
-
-
-
-
-
+import android.util.Log
 
 
 class MenuFragment : Fragment() {
@@ -36,6 +27,11 @@ class MenuFragment : Fragment() {
     private lateinit var adapterPizza: PizzaAdapter
     private lateinit var linearLayout: LinearLayoutManager
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.compositeDisposable.dispose()
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(

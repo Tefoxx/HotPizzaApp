@@ -37,6 +37,7 @@ class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaListItem>?>,
                     putString(BundleKeys.NAME, listItem.name)
                     putString(BundleKeys.DESCRIPTION, listItem.description)
                     putString(BundleKeys.PRICE, listItem.price.toInt().toString())
+                    //first, тк пока что там только 1 ссылка, как будут ещё данные, изменю сразу
                     putString(BundleKeys.IMAGEURL,listItem.imgList.first())
                 }
 

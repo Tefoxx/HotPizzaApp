@@ -1,20 +1,22 @@
 package com.example.hotpizzaapp.models
 
 import android.app.Application
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.hotpizzaapp.PizzaApp
-import com.example.hotpizzaapp.data.PizzaEntity
 import com.example.hotpizzaapp.data.remote.PizzaApi
 import com.example.hotpizzaapp.data.remote.PizzaListItem
-import com.example.hotpizzaapp.data.remote.PizzaListResponse
+import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
+
+    //Не до конца понимаю, зачем убирать LiveData, если RxJava и LiveData дополняют себя
+    //Может просто лучше объяснить мне нужно
 
     val pizzaList =  MutableLiveData<List<PizzaListItem>>()
 
@@ -22,17 +24,28 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
 
     val pizzaApi = (app as PizzaApp).pizzaApi
 
-    private val compositeDisposable = CompositeDisposable()
+    val compositeDisposable = CompositeDisposable()
 
-    fun fetchPizzaList(pizzaApi: PizzaApi){
+
+    fun fetchPizzaList(pizzaApi: PizzaApi) {
+
+        //В любом случае, всё сюда "запихать" можно, тут и данные пришли с API и все данные получал не в главном потоке
+        //Потом в LiveData присвоил, и потом уже ими пользуешься так, как хочешь
         compositeDisposable.add(pizzaApi.getAllPizza()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+
                     pizzaList.value = it
                     pizzaListOpen.value = pizzaList.value
-            },{
 
+            },{
+                //На "выходной" неделе сделаю кнопку или ещё что-то, чтобы App не перезагружать
+                Toast.makeText(getApplication(),
+                    "Убедитесь, что у вас есть доступ к интернету и перезапустите приложение",
+                    Toast.LENGTH_LONG).show()
             }))
     }
+
+
 }

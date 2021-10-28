@@ -2,8 +2,6 @@ package com.example.hotpizzaapp.data.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class PizzaListResponse(val items: List<PizzaListItem>)
-
 data class PizzaListItem(
     @SerializedName("id")
     val id: Int,
