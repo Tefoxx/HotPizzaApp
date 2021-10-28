@@ -1,7 +1,6 @@
 package com.example.hotpizzaapp.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +14,12 @@ import com.example.hotpizzaapp.data.BundleKeys
 import com.example.hotpizzaapp.data.remote.PizzaListItem
 import com.example.hotpizzaapp.databinding.PizzaItemsBinding
 import com.squareup.picasso.Picasso
+import io.reactivex.subjects.BehaviorSubject
 
 
-class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaListItem>?>,
-                   private val fragmentManager: FragmentManager) : RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder>(){
+class PizzaAdapter(private val fragmentManager: FragmentManager) : RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder>(){
+
+    private var dataList: List<PizzaListItem>? =  emptyList()
 
     class PizzaViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val binding = PizzaItemsBinding.bind(view)
@@ -55,7 +56,7 @@ class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaListItem>?>,
 
     override fun onBindViewHolder(holder: PizzaViewHolder, position: Int) {
 
-        dataList.value?.let {
+        dataList?.let {
             val listItem = it[position]
             holder.bind(listItem, fragmentManager)
             Picasso.get().load(listItem.imgList.first()).into(holder.binding.pizzaImage)
@@ -63,5 +64,9 @@ class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaListItem>?>,
         }
     }
 
-    override fun getItemCount() = dataList.value?.size?:0
+    override fun getItemCount() = dataList?.size?:0
+
+    fun changeData(items: List<PizzaListItem>?){
+        dataList = items
+    }
 }

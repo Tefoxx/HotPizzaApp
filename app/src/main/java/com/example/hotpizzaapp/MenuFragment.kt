@@ -17,6 +17,7 @@ import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
 import android.app.Activity
 import android.util.Log
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 class MenuFragment : Fragment() {
@@ -46,16 +47,18 @@ class MenuFragment : Fragment() {
 
         activity?.let {
 
-            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen, parentFragmentManager)
-
+            adapterPizza = PizzaAdapter(parentFragmentManager)
             linearLayout = LinearLayoutManager(it)
 
             binding.recyclerPizza.layoutManager = linearLayout
             binding.recyclerPizza.adapter = adapterPizza
 
-            viewModel.pizzaListOpen.observe(viewLifecycleOwner, {
+            viewModel.pizzaListOpen.observeOn(AndroidSchedulers.mainThread()).subscribe({
+                adapterPizza.changeData(it)
                 adapterPizza.notifyDataSetChanged()
             })
+
+
         }
 
         binding.imgLoopa.setOnClickListener {
@@ -71,18 +74,7 @@ class MenuFragment : Fragment() {
         }
 
         binding.etSearchPizza.addTextChangedListener {
-            with(binding){
-
-                val resList = mutableListOf<PizzaListItem>()
-                val edit = it
-                if(it != null) {
-                   viewModel?.pizzaList?.value?.forEach {
-                        if(it.name.lowercase().contains(edit.toString()))
-                            resList.add(it)
-                    }
-                    viewModel?.pizzaListOpen?.value = resList
-                }
-            }
+            viewModel.searchPizza(it.toString())
         }
 
 
@@ -107,7 +99,8 @@ class MenuFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.pizzaListOpen.value = viewModel.pizzaList.value
+        viewModel.pizzaListOpen.offer(viewModel.pizzaList.value)
     }
+
 }
 
