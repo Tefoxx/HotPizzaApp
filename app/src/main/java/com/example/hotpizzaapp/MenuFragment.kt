@@ -17,7 +17,6 @@ import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
 import android.app.Activity
 import android.util.Log
-import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 class MenuFragment : Fragment() {
@@ -47,18 +46,16 @@ class MenuFragment : Fragment() {
 
         activity?.let {
 
-            adapterPizza = PizzaAdapter(parentFragmentManager)
+            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen, parentFragmentManager)
+
             linearLayout = LinearLayoutManager(it)
 
             binding.recyclerPizza.layoutManager = linearLayout
             binding.recyclerPizza.adapter = adapterPizza
 
-            viewModel.pizzaListOpen.observeOn(AndroidSchedulers.mainThread()).subscribe({
-                adapterPizza.changeData(it)
+            viewModel.pizzaListOpen.observe(viewLifecycleOwner, {
                 adapterPizza.notifyDataSetChanged()
             })
-
-
         }
 
         binding.imgLoopa.setOnClickListener {
@@ -99,8 +96,7 @@ class MenuFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.pizzaListOpen.offer(viewModel.pizzaList.value)
+        viewModel.pizzaListOpen.value = viewModel.pizzaList.value
     }
-
 }
 
