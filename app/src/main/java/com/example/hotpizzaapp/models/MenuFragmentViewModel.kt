@@ -15,26 +15,26 @@ import io.reactivex.schedulers.Schedulers
 
 class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
 
-    //Не до конца понимаю, зачем убирать LiveData, если RxJava и LiveData дополняют себя
-    //Может просто лучше объяснить мне нужно
-
     val pizzaList =  MutableLiveData<List<PizzaListItem>>()
 
     val pizzaListOpen = MutableLiveData(pizzaList.value)
 
     val pizzaApi = (app as PizzaApp).pizzaApi
 
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
 
     init {
         fetchPizzaList(pizzaApi)
     }
 
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
+    }
+
     fun fetchPizzaList(pizzaApi: PizzaApi) {
 
-        //В любом случае, всё сюда "запихать" можно, тут и данные пришли с API и все данные получал не в главном потоке
-        //Потом в LiveData присвоил, и потом уже ими пользуешься так, как хочешь
         compositeDisposable.add(pizzaApi.getAllPizza()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -42,18 +42,11 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
 
                 pizzaList.value = it
                 pizzaListOpen.value = it
-
             },{
-                //На "выходной" неделе сделаю кнопку или ещё что-то, чтобы App не перезагружать
                 Toast.makeText(getApplication(),
                     "Убедитесь, что у вас есть доступ к интернету и перезапустите приложение",
                     Toast.LENGTH_LONG).show()
             }))
-    }
-
-    override fun onCleared() {
-        compositeDisposable.dispose()
-        super.onCleared()
     }
 
     fun searchPizza(value: String){
@@ -66,5 +59,4 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
             pizzaListOpen.value = resList
         }
     }
-
 }

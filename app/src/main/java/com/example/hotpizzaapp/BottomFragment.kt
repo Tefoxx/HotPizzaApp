@@ -1,6 +1,7 @@
 package com.example.hotpizzaapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -70,6 +71,9 @@ class BottomFragment : BottomSheetDialogFragment() {
                     containerLayout?.requestLayout()
                 }
             }
+
+            val button = it.findViewById<LinearLayout>(R.id.btnBottomSheet)
+            button?.setOnClickListener { buttonClick() }
         }
     }
 
@@ -83,35 +87,33 @@ class BottomFragment : BottomSheetDialogFragment() {
         descriptionPizza.text = arguments?.getString(BundleKeys.DESCRIPTION)
         Picasso.get().load(arguments?.getString(BundleKeys.IMAGEURL)).into(ivPizzaSheet)
 
-        val button = requireDialog().findViewById<LinearLayout>(R.id.btnBottomSheet)
-
-        button?.setOnClickListener {
-            buttonClick()
-        }
-
         val price = requireDialog().findViewById<TextView>(R.id.pricePizza)
         price?.text = getString(R.string.price, arguments?.getString(BundleKeys.PRICE))
 
         ivPizzaSheet.setOnClickListener {
-            val bundle = Bundle()
-            val fragmentImage = ImageFragment()
-            bundle.apply {
-                putString(BundleKeys.IMAGEURL, arguments?.getString(BundleKeys.IMAGEURL))
-                putString(BundleKeys.PRICE, arguments?.getString(BundleKeys.PRICE))
-            }
-
-            fragmentImage.arguments = bundle
-            parentFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragment, fragmentImage)
-                addToBackStack(null)
-                commit()
-            }
-            dismiss()
+            viewClick()
         }
     }
 
+    private fun viewClick() {
+        val bundle = Bundle()
+        val fragmentImage = ImageFragment()
+        bundle.apply {
+            putString(BundleKeys.IMAGEURL, arguments?.getString(BundleKeys.IMAGEURL))
+            putString(BundleKeys.PRICE, arguments?.getString(BundleKeys.PRICE))
+        }
+
+        fragmentImage.arguments = bundle
+        parentFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, fragmentImage)
+            addToBackStack(null)
+            commit()
+        }
+        dismiss()
+    }
+
     private fun buttonClick() {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
+        parentFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment, CartFragment())
             addToBackStack(null)
             commit()
