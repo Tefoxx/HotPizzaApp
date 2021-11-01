@@ -27,6 +27,10 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
     val compositeDisposable = CompositeDisposable()
 
 
+    init {
+        fetchPizzaList(pizzaApi)
+    }
+
     fun fetchPizzaList(pizzaApi: PizzaApi) {
 
         //В любом случае, всё сюда "запихать" можно, тут и данные пришли с API и все данные получал не в главном потоке
@@ -45,6 +49,11 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
                     "Убедитесь, что у вас есть доступ к интернету и перезапустите приложение",
                     Toast.LENGTH_LONG).show()
             }))
+    }
+
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
     }
 
     fun searchPizza(value: String){

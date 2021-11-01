@@ -17,48 +17,65 @@ import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
 import android.app.Activity
 import android.util.Log
+import androidx.fragment.app.viewModels
+import com.example.hotpizzaapp.data.BundleKeys
 
 
-class MenuFragment : Fragment() {
+class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private lateinit var binding: FragmentMenuBinding
-    private val viewModel: MenuFragmentViewModel by activityViewModels()
+    private val viewModel: MenuFragmentViewModel by viewModels()
 
     private lateinit var adapterPizza: PizzaAdapter
     private lateinit var linearLayout: LinearLayoutManager
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.compositeDisposable.dispose()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
-        binding.viewModel = viewModel
+        binding = FragmentMenuBinding.inflate(inflater, container, false)
 
-        viewModel.fetchPizzaList(viewModel.pizzaApi)
+        return binding.root
 
-        activity?.let {
+    }
 
-            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen, parentFragmentManager)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+    
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initView() = with(binding){
+        requireActivity().let {
+
+            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen){ listItem ->
+                val bundle = Bundle()
+
+                with(bundle) {
+                    putString(BundleKeys.NAME, listItem.name)
+                    putString(BundleKeys.DESCRIPTION, listItem.description)
+                    putString(BundleKeys.PRICE, listItem.price.toInt().toString())
+                    //first, тк пока что там только 1 ссылка, как будут ещё данные, изменю сразу
+                    putString(BundleKeys.IMAGEURL,listItem.imgList.first())
+                }
+
+                val bottomSheet = BottomFragment()
+                bottomSheet.arguments = bundle
+                bottomSheet.show(parentFragmentManager, "tag")
+            }
 
             linearLayout = LinearLayoutManager(it)
 
-            binding.recyclerPizza.layoutManager = linearLayout
-            binding.recyclerPizza.adapter = adapterPizza
+            recyclerPizza.layoutManager = linearLayout
+            recyclerPizza.adapter = adapterPizza
 
             viewModel.pizzaListOpen.observe(viewLifecycleOwner, {
                 adapterPizza.notifyDataSetChanged()
             })
         }
 
-        binding.imgLoopa.setOnClickListener {
+        imgLoopa.setOnClickListener {
             with(binding){
                 tvMenuFragment.visibility = View.INVISIBLE
                 etSearchPizza.visibility = View.VISIBLE
@@ -70,28 +87,22 @@ class MenuFragment : Fragment() {
             }
         }
 
-        binding.etSearchPizza.addTextChangedListener {
+        etSearchPizza.addTextChangedListener {
             viewModel.searchPizza(it.toString())
         }
 
-
-        binding.etSearchPizza.setOnEditorActionListener { _, actionId, _ ->
+        etSearchPizza.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                with(binding) {
-                    tvMenuFragment.visibility = View.VISIBLE
-                    imgLoopa.visibility = View.VISIBLE
-                    etSearchPizza.visibility = View.GONE
-
-                }
+                tvMenuFragment.visibility = View.VISIBLE
+                imgLoopa.visibility = View.VISIBLE
+                etSearchPizza.visibility = View.GONE
+                
                 val imm =
-                    activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+                    requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
                 imm?.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
             }
             true
         }
-
-
-        return binding.root
     }
 
     override fun onStart() {
