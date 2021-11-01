@@ -11,7 +11,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.schedulers.Schedulers
 
 class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
@@ -19,20 +18,9 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
     //Не до конца понимаю, зачем убирать LiveData, если RxJava и LiveData дополняют себя
     //Может просто лучше объяснить мне нужно
 
-    //val pizzaList =  MutableLiveData<List<PizzaListItem>>()
+    val pizzaList =  MutableLiveData<List<PizzaListItem>>()
 
-    val pizzaList by lazy {
-        val processor = BehaviorProcessor.create<List<PizzaListItem>>()
-        processor.offer(listOf())
-        processor
-    }
-
-    val pizzaListOpen by lazy {
-        val processor = BehaviorProcessor.create<List<PizzaListItem>>()
-        processor.offer(listOf())
-        processor
-    }
-
+    val pizzaListOpen = MutableLiveData(pizzaList.value)
 
     val pizzaApi = (app as PizzaApp).pizzaApi
 
@@ -48,8 +36,8 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
 
-                    pizzaList.offer(it)
-                    pizzaListOpen.offer(it)
+                pizzaList.value = it
+                pizzaListOpen.value = it
 
             },{
                 //На "выходной" неделе сделаю кнопку или ещё что-то, чтобы App не перезагружать
@@ -66,7 +54,7 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
                 if(pizzaItem.name.lowercase().contains(it))
                     resList.add(pizzaItem)
             }
-           pizzaListOpen.offer(resList)
+            pizzaListOpen.value = resList
         }
     }
 
