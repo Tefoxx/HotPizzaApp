@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,6 @@ import com.example.hotpizzaapp.data.BundleKeys
 import com.example.hotpizzaapp.data.remote.PizzaListItem
 import com.example.hotpizzaapp.databinding.PizzaItemsBinding
 import com.squareup.picasso.Picasso
-
 
 class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaListItem>?>,
                    private val fragmentManager: FragmentManager) : RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder>(){
