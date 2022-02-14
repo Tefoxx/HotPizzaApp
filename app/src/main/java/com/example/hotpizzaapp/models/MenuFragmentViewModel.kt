@@ -1,6 +1,7 @@
 package com.example.hotpizzaapp.models
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -31,10 +32,8 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
                 pizzaListOpen.value = it
 
             },{
-
-                Toast.makeText(getApplication(),
-                    "Убедитесь, что у вас есть доступ к интернету и перезапустите приложение",
-                    Toast.LENGTH_LONG).show()
+                //Maybe needs fix, IDN
+                fetchPizzaList(pizzaApi)
             }))
     }
 
