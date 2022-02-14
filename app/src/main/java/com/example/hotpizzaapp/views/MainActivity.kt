@@ -1,9 +1,8 @@
-package com.example.hotpizzaapp
+package com.example.hotpizzaapp.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
+import com.example.hotpizzaapp.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +17,5 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.flFragment, menuFragment)
             commit()
         }
-
     }
-
 }

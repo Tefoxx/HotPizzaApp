@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".EndFragment"
+        tools:context=".views.EndFragment"
         android:background="@color/orange_main">
 
         <androidx.cardview.widget.CardView

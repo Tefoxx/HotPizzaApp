@@ -1,22 +1,18 @@
-package com.example.hotpizzaapp
+package com.example.hotpizzaapp.views
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotpizzaapp.adapters.PizzaAdapter
-import com.example.hotpizzaapp.data.remote.PizzaListItem
 import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.example.hotpizzaapp.models.MenuFragmentViewModel
 import android.app.Activity
-import android.util.Log
+import android.content.Context
+import androidx.core.widget.addTextChangedListener
 
 
 class MenuFragment : Fragment() {
@@ -52,7 +48,7 @@ class MenuFragment : Fragment() {
                 adapterPizza.notifyDataSetChanged()
             })
         }
-        //ds
+
         binding.imgLoopa.setOnClickListener {
             with(binding){
                 tvMenuFragment.visibility = View.INVISIBLE
@@ -68,7 +64,6 @@ class MenuFragment : Fragment() {
         binding.etSearchPizza.addTextChangedListener {
             viewModel.searchPizza(it.toString())
         }
-
 
         binding.etSearchPizza.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -92,6 +87,5 @@ class MenuFragment : Fragment() {
         super.onStart()
         viewModel.pizzaListOpen.value = viewModel.pizzaList.value
     }
-
 }
 

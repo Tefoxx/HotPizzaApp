@@ -1,4 +1,4 @@
-package com.example.hotpizzaapp
+package com.example.hotpizzaapp.views
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
+import com.example.hotpizzaapp.R
 import com.example.hotpizzaapp.data.BundleKeys
 import com.example.hotpizzaapp.databinding.BottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -26,7 +27,7 @@ class BottomFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_layout, container,false )
+        binding = BottomSheetLayoutBinding.inflate(inflater, container,false )
 
         binding.tvPizzaName.text = arguments?.getString(BundleKeys.NAME)
         binding.descriptionPizza.text = arguments?.getString(BundleKeys.DESCRIPTION)
@@ -54,7 +55,6 @@ class BottomFragment : BottomSheetDialogFragment() {
 
             val buttons = it.layoutInflater.inflate(R.layout.button, null)
 
-
             buttons.layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT
@@ -81,7 +81,6 @@ class BottomFragment : BottomSheetDialogFragment() {
 
             val price = it.findViewById<TextView>(R.id.pricePizza)
             price?.text = arguments?.getString(BundleKeys.PRICE) + "₽"
-
 
             binding.ivPizzaSheet.setOnClickListener(ivClickSheet)
         }
@@ -112,5 +111,4 @@ class BottomFragment : BottomSheetDialogFragment() {
         }
         dismiss()
     }
-
 }

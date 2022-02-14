@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hotpizzaapp.BottomFragment
+import com.example.hotpizzaapp.views.BottomFragment
 import com.example.hotpizzaapp.R
 import com.example.hotpizzaapp.data.BundleKeys
 import com.example.hotpizzaapp.data.remote.PizzaListItem
@@ -59,7 +59,6 @@ class PizzaAdapter(private val dataList : MutableLiveData<List<PizzaListItem>?>,
             val listItem = it[position]
             holder.bind(listItem, fragmentManager)
             Picasso.get().load(listItem.imgList.first()).into(holder.binding.pizzaImage)
-
         }
     }
 

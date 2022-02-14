@@ -1,4 +1,4 @@
-package com.example.hotpizzaapp
+package com.example.hotpizzaapp.views
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,11 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import com.example.hotpizzaapp.R
 import com.example.hotpizzaapp.data.BundleKeys
 import com.example.hotpizzaapp.databinding.FragmentImageBinding
-import com.example.hotpizzaapp.databinding.FragmentMenuBinding
 import com.squareup.picasso.Picasso
 
 class ImageFragment : Fragment() {
@@ -23,8 +22,7 @@ class ImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_image, container,false )
+        binding = FragmentImageBinding.inflate(inflater, container,false )
 
         Picasso.get().load(arguments?.getString(BundleKeys.IMAGEURL)).into(binding.ivPizzaItem)
         binding.pricePizzaItem.text = arguments?.getString(BundleKeys.PRICE) + "₽"
@@ -38,8 +36,6 @@ class ImageFragment : Fragment() {
                 commit()
             }
         }
-
         return binding.root
     }
-
 }

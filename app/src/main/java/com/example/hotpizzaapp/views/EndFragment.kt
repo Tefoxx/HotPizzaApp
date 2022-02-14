@@ -1,14 +1,13 @@
-package com.example.hotpizzaapp
+package com.example.hotpizzaapp.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import com.example.hotpizzaapp.R
 import com.example.hotpizzaapp.databinding.FragmentEndBinding
-import com.example.hotpizzaapp.databinding.FragmentImageBinding
 
 
 class EndFragment : Fragment() {
@@ -28,7 +27,6 @@ class EndFragment : Fragment() {
                 commit()
             }
         }
-
         return binding.root
     }
 }

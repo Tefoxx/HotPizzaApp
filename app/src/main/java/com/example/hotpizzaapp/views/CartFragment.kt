@@ -1,21 +1,16 @@
-package com.example.hotpizzaapp
+package com.example.hotpizzaapp.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
-import androidx.fragment.app.activityViewModels
-import com.example.hotpizzaapp.databinding.BottomSheetLayoutBinding
+import com.example.hotpizzaapp.R
 import com.example.hotpizzaapp.databinding.FragmentCartBinding
-import com.example.hotpizzaapp.models.MenuFragmentViewModel
 
 
 class CartFragment : Fragment() {
-
 
     private lateinit var binding: FragmentCartBinding
 
@@ -37,5 +32,4 @@ class CartFragment : Fragment() {
         return binding.root
 
     }
-
 }
