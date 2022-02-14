@@ -23,25 +23,20 @@ class MenuFragment : Fragment() {
 
     private lateinit var binding: FragmentMenuBinding
     private val viewModel: MenuFragmentViewModel by activityViewModels()
-
     private lateinit var adapterPizza: PizzaAdapter
     private lateinit var linearLayout: LinearLayoutManager
-
 
     override fun onDestroy() {
         super.onDestroy()
         viewModel.compositeDisposable.dispose()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View{
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
-        binding.viewModel = viewModel
-
+        binding = FragmentMenuBinding.inflate(inflater, container, false)
         viewModel.fetchPizzaList(viewModel.pizzaApi)
 
         activity?.let {
@@ -57,7 +52,7 @@ class MenuFragment : Fragment() {
                 adapterPizza.notifyDataSetChanged()
             })
         }
-
+        //ds
         binding.imgLoopa.setOnClickListener {
             with(binding){
                 tvMenuFragment.visibility = View.INVISIBLE
@@ -90,7 +85,6 @@ class MenuFragment : Fragment() {
             true
         }
 
-
         return binding.root
     }
 
@@ -98,5 +92,6 @@ class MenuFragment : Fragment() {
         super.onStart()
         viewModel.pizzaListOpen.value = viewModel.pizzaList.value
     }
+
 }
 
