@@ -16,4 +16,5 @@
     <string name="item_description">Крутая пицца ваще топ за свои деньги реально</string>
     <string name="_900">900₽</string>
     <string name="place_order">Place order</string>
+    <string name="ruble_price">%s ₽</string>
 </resources>

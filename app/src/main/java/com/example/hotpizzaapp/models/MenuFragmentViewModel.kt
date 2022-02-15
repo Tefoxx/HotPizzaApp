@@ -21,6 +21,15 @@ class MenuFragmentViewModel(app : Application): AndroidViewModel(app) {
     val pizzaApi = (app as PizzaApp).pizzaApi
     val compositeDisposable = CompositeDisposable()
 
+    init {
+        fetchPizzaList(pizzaApi)
+    }
+
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
+    }
+
     fun fetchPizzaList(pizzaApi: PizzaApi) {
 
         compositeDisposable.add(pizzaApi.getAllPizza()

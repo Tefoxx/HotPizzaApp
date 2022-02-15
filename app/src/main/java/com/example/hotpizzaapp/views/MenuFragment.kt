@@ -13,6 +13,7 @@ import com.example.hotpizzaapp.models.MenuFragmentViewModel
 import android.app.Activity
 import android.content.Context
 import androidx.core.widget.addTextChangedListener
+import com.example.hotpizzaapp.data.BundleKeys
 
 
 class MenuFragment : Fragment() {
@@ -22,22 +23,30 @@ class MenuFragment : Fragment() {
     private lateinit var adapterPizza: PizzaAdapter
     private lateinit var linearLayout: LinearLayoutManager
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.compositeDisposable.dispose()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
 
         binding = FragmentMenuBinding.inflate(inflater, container, false)
-        viewModel.fetchPizzaList(viewModel.pizzaApi)
 
         activity?.let {
 
-            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen, parentFragmentManager)
+            adapterPizza = PizzaAdapter(viewModel.pizzaListOpen){ listItem ->
+                val bundle = Bundle()
+
+                with(bundle) {
+                    putString(BundleKeys.NAME, listItem.name)
+                    putString(BundleKeys.DESCRIPTION, listItem.description)
+                    putString(BundleKeys.PRICE, listItem.price.toInt().toString())
+                    //first, тк пока что там только 1 ссылка, как будут ещё данные, изменю сразу
+                    putString(BundleKeys.IMAGEURL,listItem.imgList.first())
+                }
+
+                val bottomSheet = BottomFragment()
+                bottomSheet.arguments = bundle
+                bottomSheet.show(parentFragmentManager, "tag")
+            }
 
             linearLayout = LinearLayoutManager(it)
 
@@ -49,6 +58,7 @@ class MenuFragment : Fragment() {
             })
         }
 
+        //Search Events place
         binding.imgLoopa.setOnClickListener {
             with(binding){
                 tvMenuFragment.visibility = View.INVISIBLE
@@ -79,6 +89,7 @@ class MenuFragment : Fragment() {
             }
             true
         }
+        //End Search Events place
 
         return binding.root
     }
